@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+*:focus {
+  box-shadow: 0 0 0 2px theme(colors.blue.500);
+}
+
+body {
+  background-color: theme(colors.slate.100);
+}
