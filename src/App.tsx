@@ -44,7 +44,7 @@ function App() {
 
   const [pokemons, setPokemons] = useState<pokemonsProps[]>([]);
 
-  const [filter, setFilter] = useState<string>("");
+  const [filter /*, setFilter */] = useState<string>("");
 
   const getApiData = async () => {
     const endpoints = [];
@@ -90,7 +90,7 @@ function App() {
           <Header.Button placeholder="Filter" icon={TbListSearch} />
         </div>
       </Header.Wrapper>
-      <div className="w-screen flex flex-wrap gap-2 justify-between px-12 pt-20">
+      <div className="w-screen md:grid md:grid-cols-6 lg:flex lg:flex-wrap lg:justify-center gap-2 px-12 pt-20">
         {filteredPokemons.map((pokemon, index) => {
           return (
             <Card.Wrapper
@@ -110,6 +110,7 @@ function App() {
             </Card.Wrapper>
           );
         })}
+        <div className="flex-grow h-60"></div>
       </div>
     </ThemeContext.Provider>
   );
