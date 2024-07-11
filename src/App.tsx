@@ -1,9 +1,11 @@
 import { TbListSearch, TbPokeball } from "react-icons/tb";
 import { Header } from "./components/Header";
 import "./global.css";
-import { PiCirclesFourBold } from "react-icons/pi";
+import { PiCirclesFourBold, PiMoonBold, PiSunBold } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { Card } from "./components/Card";
+import { useTheme } from "./useTheme";
+import ThemeContext from "./ThemeContext";
 
 interface pokemonsProps {
   name: string;
@@ -36,6 +38,10 @@ interface pokemonsProps {
 }
 
 function App() {
+  const themeHook = useTheme();
+
+  if (themeHook.states.theme === "light") document.body.classList.add("light");
+
   const [pokemons, setPokemons] = useState<pokemonsProps[]>([]);
 
   const [filter, setFilter] = useState<string>("");
@@ -65,9 +71,18 @@ function App() {
   });
 
   return (
-    <>
+    <ThemeContext.Provider value={themeHook.states.theme}>
       <Header.Wrapper>
         <div className="flex gap-4">
+          <Header.Toggle
+            title="theme"
+            icons={{
+              toggle: { icon: PiMoonBold },
+              toggled: { icon: PiSunBold },
+            }}
+            toggled={themeHook.states.theme == "light" ? false : true}
+            theme={themeHook.actions.handleTheme}
+          />
           <Header.Button placeholder="Pokemons" icon={TbPokeball} />
           <Header.Input placeholder="Greeninja" icon={PiCirclesFourBold} />
         </div>
@@ -96,7 +111,7 @@ function App() {
           );
         })}
       </div>
-    </>
+    </ThemeContext.Provider>
   );
 }
 
