@@ -3,7 +3,12 @@ import { getDetailedPokemon } from "../api";
 import { DetailedPokemonProps } from "../types";
 import { Card } from "../components/Card";
 import { Navigation } from "../components/Navigation";
-import { PiArrowLeftBold, PiArrowRightBold } from "react-icons/pi";
+import {
+  PiArrowLeftBold,
+  PiArrowRightBold,
+  PiCaretDoubleLeftBold,
+  PiCaretDoubleRightBold,
+} from "react-icons/pi";
 
 const Pokedex: React.FC = () => {
   const [pokemonList, setPokemonList] = useState<DetailedPokemonProps[]>([]);
@@ -65,6 +70,12 @@ const Pokedex: React.FC = () => {
     return (
       <Navigation.Wrapper>
         <Navigation.Button
+          placeholder={PiCaretDoubleLeftBold}
+          onClick={() => handlePageChange(1)}
+          disabled={currentPage == 1}
+          variant={currentPage == 1 ? "disabled" : "active"}
+        />
+        <Navigation.Button
           placeholder={PiArrowLeftBold}
           onClick={() =>
             handlePageChange(currentPage > 1 ? currentPage - 1 : currentPage)
@@ -72,14 +83,6 @@ const Pokedex: React.FC = () => {
           disabled={currentPage == 1}
           variant={currentPage == 1 ? "disabled" : "active"}
         />
-        {currentPage > 3 && (
-          <Navigation.Button
-            placeholder={"1"}
-            onClick={() => handlePageChange(1)}
-            disabled={currentPage == 1}
-            variant={currentPage == 1 ? "disabled" : "active"}
-          />
-        )}
         {pages.map((page) => (
           <Navigation.Button
             placeholder={page.toString()}
@@ -88,14 +91,6 @@ const Pokedex: React.FC = () => {
             variant={currentPage == page ? "disabled" : "active"}
           />
         ))}
-        {currentPage < totalPages - 1 && (
-          <Navigation.Button
-            placeholder={totalPages.toString()}
-            onClick={() => handlePageChange(totalPages)}
-            disabled={currentPage == totalPages}
-            variant={currentPage == totalPages ? "disabled" : "active"}
-          />
-        )}
         <Navigation.Button
           placeholder={PiArrowRightBold}
           onClick={() =>
@@ -103,6 +98,12 @@ const Pokedex: React.FC = () => {
               currentPage < totalPages ? currentPage + 1 : currentPage
             )
           }
+          disabled={currentPage == totalPages}
+          variant={currentPage == totalPages ? "disabled" : "active"}
+        />
+        <Navigation.Button
+          placeholder={PiCaretDoubleRightBold}
+          onClick={() => handlePageChange(totalPages)}
           disabled={currentPage == totalPages}
           variant={currentPage == totalPages ? "disabled" : "active"}
         />

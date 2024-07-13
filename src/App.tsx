@@ -5,8 +5,15 @@ import { PiCirclesFourBold, PiMoonBold, PiSunBold } from "react-icons/pi";
 import { useTheme } from "./useTheme";
 import ThemeContext from "./ThemeContext";
 import Pokedex from "./pages/Pokedex";
+import { useEffect } from "react";
+
 function App() {
   const themeHook = useTheme();
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.body.classList.add(savedTheme);
+  }, []);
 
   if (themeHook.states.theme === "light") document.body.classList.add("light");
 
