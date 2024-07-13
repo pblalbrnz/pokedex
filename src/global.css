@@ -28,5 +28,15 @@
 body {
   overflow-y: scroll;
   overflow-x: hidden;
+  transition-property: all;
+  transition-timing-function: linear;
+  transition-duration: 150ms;
+}
+
+body.dark {
+  background-color: theme(colors.slate.700);
+}
+
+body.light {
   background-color: theme(colors.slate.100);
 }
