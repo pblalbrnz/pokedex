@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "noto": "Noto Sans, sans-serif"
+        "noto": "Noto Sans, sans-serif",
+        "poppins": "'Poppins', sans-serif"
       },
       boxShadow: {
         "border": "0 0 0 2px theme(colors.amber.500)"

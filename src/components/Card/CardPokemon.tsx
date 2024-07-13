@@ -2,16 +2,19 @@ import { twMerge } from "tailwind-merge";
 import { capitalize, capitalizeWords } from "../../functions/String";
 import { useContext } from "react";
 import ThemeContext from "../../ThemeContext";
+import { PiStarFill } from "react-icons/pi";
 
 interface CardPokemonProps {
   name: string;
   types: string[];
+  generation: string;
+  legendary?: boolean;
 }
 
 export function CardPokemon(props: CardPokemonProps) {
   const theme = useContext(ThemeContext);
 
-  let nameStyle, themeStyle: { bg: string; name: string };
+  let nameStyle, themeStyle: { bg: string; name: string }, divisorStyle;
   const typeColors: {
     dark: { [key: string]: { bg: string; name: string } };
     light: { [key: string]: { bg: string; name: string } };
@@ -27,8 +30,8 @@ export function CardPokemon(props: CardPokemonProps) {
         name: "text-orange-200",
       },
       fire: { bg: "bg-red-500 text-red-100", name: "text-red-200" },
-      flying: { bg: "bg-blue-300 text-blue-900", name: "text-flying-200" },
-      ghost: { bg: "bg-violet-700 text-violet-100", name: "text-viole-200" },
+      flying: { bg: "bg-blue-300 text-blue-900", name: "text-blue-200" },
+      ghost: { bg: "bg-violet-700 text-violet-100", name: "text-violet-200" },
       grass: { bg: "bg-green-400 text-green-900", name: "text-green-200" },
       ground: { bg: "bg-orange-400 text-orange-900", name: "text-orange-200" },
       ice: { bg: "bg-sky-100 text-sky-900", name: "text-sky-200" },
@@ -50,8 +53,8 @@ export function CardPokemon(props: CardPokemonProps) {
         name: "text-orange-200",
       },
       fire: { bg: "bg-red-600 text-red-100", name: "text-red-200" },
-      flying: { bg: "bg-blue-400 text-blue-900", name: "text-flying-200" },
-      ghost: { bg: "bg-violet-800 text-violet-100", name: "text-viole-200" },
+      flying: { bg: "bg-blue-400 text-blue-900", name: "text-blue-200" },
+      ghost: { bg: "bg-violet-800 text-violet-100", name: "text-violet-200" },
       grass: { bg: "bg-green-500 text-green-900", name: "text-green-200" },
       ground: { bg: "bg-orange-500 text-orange-900", name: "text-orange-200" },
       ice: { bg: "bg-sky-100 text-sky-900", name: "text-sky-200" },
@@ -64,13 +67,27 @@ export function CardPokemon(props: CardPokemonProps) {
     },
   };
 
-  if (theme == "light") nameStyle = typeColors.light[props.types[0]];
-  if (theme == "dark") nameStyle = typeColors.dark[props.types[0]];
+  if (theme == "light") {
+    nameStyle = typeColors.light[props.types[0]];
+    divisorStyle = "bg-slate-100";
+  }
+  if (theme == "dark") {
+    nameStyle = typeColors.dark[props.types[0]];
+    divisorStyle = "bg-slate-200";
+  }
+
+  let generation: string = "No Data";
+
+  if (props.generation == "generation-i") generation = "Gen 1";
+  if (props.generation == "generation-ii") generation = "Gen 2";
+  if (props.generation == "generation-iii") generation = "Gen 3";
+  if (props.generation == "generation-iv") generation = "Gen 4";
+  if (props.generation == "generation-v") generation = "Gen 5";
 
   const colorName: { bg: string; name: string } = nameStyle!;
 
   return (
-    <div className="w-full h-28 px-2 py-4 flex flex-col gap-4 font-noto">
+    <div className="w-full h-28 px-2 py-4 flex flex-col gap-2 font-noto">
       <h1 className={twMerge("font-medium text-lg", colorName.name)}>
         {capitalizeWords(props.name.replace("-", " "))}
       </h1>
@@ -91,6 +108,29 @@ export function CardPokemon(props: CardPokemonProps) {
             </span>
           );
         })}
+      </div>
+      <div className="flex gap-2 justify-center items-center">
+        <p
+          className={twMerge(
+            "text-xs opacity-75 font-noto",
+            nameStyle?.name
+          )}
+        >
+          {generation}
+        </p>
+        {props.legendary ? (
+          <>
+            <div
+              className={twMerge(
+                "h-full w-px opacity-50 rounded",
+                divisorStyle
+              )}
+            />
+            <PiStarFill size={12} className={nameStyle?.name} />
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
