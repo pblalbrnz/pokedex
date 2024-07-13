@@ -119,7 +119,7 @@ const Pokedex: React.FC = () => {
             // onClick={() => {}}
           >
             <Card.PokemonSprite
-              id={pokemon.id + 1}
+              id={pokemon.id}
               name={pokemon.name}
               sprite={pokemon.sprites.front_default}
             />
