@@ -2,13 +2,14 @@ import { twMerge } from "tailwind-merge";
 import { capitalize, capitalizeWords } from "../../functions/String";
 import { useContext } from "react";
 import ThemeContext from "../../ThemeContext";
-import { PiStarFill } from "react-icons/pi";
+import { PiSparkleFill, PiStarFill } from "react-icons/pi";
 
 interface CardPokemonProps {
   name: string;
   types: string[];
   generation: string;
   legendary?: boolean;
+  mythical?: boolean;
 }
 
 export function CardPokemon(props: CardPokemonProps) {
@@ -83,6 +84,10 @@ export function CardPokemon(props: CardPokemonProps) {
   if (props.generation == "generation-iii") generation = "Gen 3";
   if (props.generation == "generation-iv") generation = "Gen 4";
   if (props.generation == "generation-v") generation = "Gen 5";
+  if (props.generation == "generation-vi") generation = "Gen 6";
+  if (props.generation == "generation-vii") generation = "Gen 7";
+  if (props.generation == "generation-viii") generation = "Gen 8";
+  if (props.generation == "generation-ix") generation = "Gen 9";
 
   const colorName: { bg: string; name: string } = nameStyle!;
 
@@ -110,12 +115,7 @@ export function CardPokemon(props: CardPokemonProps) {
         })}
       </div>
       <div className="flex gap-2 justify-center items-center">
-        <p
-          className={twMerge(
-            "text-xs opacity-75 font-noto",
-            nameStyle?.name
-          )}
-        >
+        <p className={twMerge("text-xs opacity-75 font-noto", nameStyle?.name)}>
           {generation}
         </p>
         {props.legendary ? (
@@ -127,6 +127,19 @@ export function CardPokemon(props: CardPokemonProps) {
               )}
             />
             <PiStarFill size={12} className={nameStyle?.name} />
+          </>
+        ) : (
+          ""
+        )}
+        {props.mythical ? (
+          <>
+            <div
+              className={twMerge(
+                "h-full w-px opacity-50 rounded",
+                divisorStyle
+              )}
+            />
+            <PiSparkleFill size={12} className={nameStyle?.name} />
           </>
         ) : (
           ""
