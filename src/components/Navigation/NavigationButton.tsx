@@ -26,6 +26,7 @@ export function NavigationButton(props: NavigationButtonProps) {
         "bg-blue-600 text-slate-800 hover:bg-blue-800 hover:text-slate-950";
     if (props.variant == "disabled") btnStyle = "bg-slate-600 text-slate-800";
   }
+
   return (
     <button
       className={twMerge(

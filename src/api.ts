@@ -35,7 +35,18 @@ export const getPokemonList = async (
 export const getDetailedPokemon = async (
   id: number
 ): Promise<DetailedPokemonProps> => {
-  const pokemon = await getPokemon(id);
-  const species = await getPokemonSpecies(id);
-  return { pokemon, species };
+  const pokemonResponse = await axios.get(`${API_BASE_URL}/pokemon/${id}`);
+  const speciesResponse = await axios.get(pokemonResponse.data.species.url);
+
+  return {
+    pokemon: pokemonResponse.data,
+    species: speciesResponse.data,
+  };
+};
+
+export const getAllPokemonNames = async (): Promise<
+  { name: string; url: string }[]
+> => {
+  const response = await axios.get(`${API_BASE_URL}/pokemon?limit=1025`);
+  return response.data.results;
 };
