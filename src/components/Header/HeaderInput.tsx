@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { IconType } from "react-icons";
-import { PiMagnifyingGlassBold, PiQuestionBold } from "react-icons/pi";
+import { PiMagnifyingGlassBold, PiQuestionBold, PiXBold } from "react-icons/pi";
 import ThemeContext from "../../ThemeContext";
 import { twMerge } from "tailwind-merge";
 
@@ -72,10 +72,16 @@ export function HeaderInput({
         type="text"
         placeholder={placeholder}
         className={twMerge(
-          "w-16 focus:shadow-none outline-none transition-all ease-linear group-hover/header-input:w-60 group-focus-within/header-input:w-60",
+          "focus:shadow-none outline-none transition-all ease-linear w-60 group-focus-within/header-input:w-60",
           inputStyle
         )}
       />
+      <button
+        className="text-xs hidden group-focus-within/header-input:flex group-active/header-input:flex "
+        onClick={() => setQuery("")}
+      >
+        <PiXBold />
+      </button>
       <button
         className={twMerge(
           "p-2 rounded hidden group-focus-within/header-input:flex group-active/header-input:flex transition-all ease-linear",

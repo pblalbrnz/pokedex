@@ -13,17 +13,37 @@ import {
 import { useTheme } from "./useTheme";
 import ThemeContext from "./ThemeContext";
 import { useEffect, useState } from "react";
-import { getAllPokemonNames, getDetailedPokemon } from "./api";
+import {
+  getAllPokemonNames,
+  getDetailedPokemon,
+  getRandomPokemonName,
+} from "./api";
 import { Card } from "./components/Card";
 import { Navigation } from "./components/Navigation";
 import { DetailedPokemonProps } from "./types";
-
+import { capitalize } from "./functions/String";
 function App() {
   const themeHook = useTheme();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light";
     document.body.classList.add(savedTheme);
+  }, []);
+
+  const [randomPlaceholder, setRandomPlaceholder] = useState<string>("");
+
+  useEffect(() => {
+    const fetchRandomPokemonName = async () => {
+      try {
+        const { name, id } = await getRandomPokemonName(); // Function to fetch a random Pokemon name
+        setRandomPlaceholder(`${capitalize(name)} or ${id}`);
+      } catch (error) {
+        console.error("Error fetching random Pokemon name:", error);
+        setRandomPlaceholder("Search by name or ID");
+      }
+    };
+
+    fetchRandomPokemonName();
   }, []);
 
   const [pokemonList, setPokemonList] = useState<DetailedPokemonProps[]>([]);
@@ -188,7 +208,7 @@ function App() {
             onClick={resetSearch}
           />
           <Header.Input
-            placeholder="Greninja"
+            placeholder={randomPlaceholder}
             icon={PiCirclesFourBold}
             onSearch={handleSearch}
           />

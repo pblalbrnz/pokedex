@@ -4,6 +4,7 @@ import {
   SpeciesProps,
   PokemonListResponseProps,
   DetailedPokemonProps,
+  MinPokemonProps,
 } from "./types";
 
 const API_BASE_URL = "https://pokeapi.co/api/v2";
@@ -49,4 +50,34 @@ export const getAllPokemonNames = async (): Promise<
 > => {
   const response = await axios.get(`${API_BASE_URL}/pokemon?limit=1025`);
   return response.data.results;
+};
+
+export const getRandomPokemonName = async (): Promise<MinPokemonProps> => {
+  try {
+    const response = await fetch(
+      "https://pokeapi.co/api/v2/pokemon?limit=1000"
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch Pokémon data");
+    }
+    const data = await response.json();
+    const results = data.results;
+    const randomIndex = Math.floor(Math.random() * results.length);
+    const pokemon = results[randomIndex];
+
+    // Fetch detailed information for the selected Pokémon to get its ID
+    const pokemonResponse = await fetch(pokemon.url);
+    if (!pokemonResponse.ok) {
+      throw new Error("Failed to fetch Pokémon details");
+    }
+    const pokemonData = await pokemonResponse.json();
+
+    return {
+      name: pokemon.name,
+      id: pokemonData.id,
+    };
+  } catch (error) {
+    console.error("Error fetching random Pokémon:", error);
+    throw error;
+  }
 };

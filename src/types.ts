@@ -6,6 +6,11 @@ export interface PokemonTypeProps {
   };
 }
 
+export interface MinPokemonProps {
+  id: number;
+  name: string;
+}
+
 export interface PokemonProps {
   id: number;
   name: string;
