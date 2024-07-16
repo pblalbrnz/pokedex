@@ -1,6 +1,7 @@
 import { HTMLAttributes, ReactNode, useContext } from "react";
 import { twMerge } from "tailwind-merge";
 import ThemeContext from "../../ThemeContext";
+import { Tilt } from "react-tilt";
 
 interface CardWrapperProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -60,13 +61,13 @@ export function CardWrapper(props: CardWrapperProps) {
   if (theme == "dark") themeStyle = typeColors.dark[props.pkmType];
 
   return (
-    <div
+    <Tilt
       className={twMerge(
-        "flex flex-col w-48 h-60 text-center rounded-md ease-linear transition-all overflow-hidden bg-gradient-to-t hover:scale-110 hover:shadow cursor-pointer",
+        "flex-[1_0_16%] flex-col w-48 h-60 text-center rounded-md ease-linear transition-all overflow-hidden bg-gradient-to-t hover:scale-110 hover:shadow cursor-pointer",
         themeStyle || "from-slate-500 to-slate-400"
       )}
     >
       {props.children}
-    </div>
+    </Tilt>
   );
 }

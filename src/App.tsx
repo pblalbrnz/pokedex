@@ -53,7 +53,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
 
-  const itemsPerPage = 12;
+  const itemsPerPage = 24;
   const totalPokemon = 1025;
   const paginationButtonCount = 4;
 
@@ -218,7 +218,7 @@ function App() {
         </div>
       </Header.Wrapper>
 
-      <div className="w-screen md:grid md:grid-cols-6 md:justify-between gap-2 lg:flex lg:flex-wrap px-12 pt-20 pb-8">
+      <div className="w-screen gap-2 flex flex-wrap justify-around px-12 pt-20 pb-8">
         {pokemonList.map(({ pokemon, species }) => (
           <Card.Wrapper
             key={pokemon.id}
